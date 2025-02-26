@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ReactNode } from "react";
-import Select from "./Select";
+import Select from "./select";
 import clsx from "clsx";
  
 interface PaginationProps {

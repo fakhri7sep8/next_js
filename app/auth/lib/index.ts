@@ -39,14 +39,17 @@ const useAuthModule = () => {
       mutationFn: login,
       onSuccess: async (response) => {
         toastSuccess(response.message);
+
+        // Menyimpan token di NextAuth session
         await signIn("credentials", {
-            id: response.data.id,
-            name: response.data.nama,
-            email: response.data.email,
-            accessToken: response.data.access_token,
-            refreshToken: response.data.refresh_token,
-            redirect: false,
-          });
+          id: response.data.id,
+          name: response.data.nama,
+          email: response.data.email,
+          accessToken: response.data.access_token,
+          refreshToken: response.data.refresh_token,
+          redirect: false,
+        });
+
         router.push("/admin");
       },
       onError: (error: any) => {

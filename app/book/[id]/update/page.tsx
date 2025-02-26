@@ -4,10 +4,10 @@ import Label from "@/components/label";
 import useBookModule from "../../lib";
 import { Form, useFormik, FormikProvider } from 'formik';
 import * as Yup from 'yup';
-import InputText from "@/txt/TextInput";
 import { useRouter } from "next/navigation";
 import { BookCreatePayload } from "../../interface";
 import Button from "@/components/Button";
+import InputText from "@/components/inputText";
 
 const createBookSchema = Yup.object().shape({
     title: Yup.string()
@@ -73,7 +73,7 @@ export default function Update({ params }: { params: { id: string } }) {
             <Form className="space-y-5 " onSubmit={handleSubmit}>
                 <section>
                     <Label htmlFor="title" title="Judul" />
-                    <InputText 
+                    <InputText  
                         id="title" 
                         name="title" 
                         value={values.title}

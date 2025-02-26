@@ -1,8 +1,8 @@
 import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from "react";
 import { BookListFilter } from "@/app/book/interface";
-import InputText from "@/txt/TextInput";
 import Label from "@/components/label";
-import Select from "@/components/Select";
+import Select from "@/components/select";
+import InputText from "@/components/inputText";
 
  
 type FilterProps = {

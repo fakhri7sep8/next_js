@@ -1,8 +1,9 @@
 "use client"; // gunakan use client karena ada onChange pda komponen
 import Button from "@/components/Button";
+import InputText from "@/components/inputText";
 import Label from "@/components/labelform";
-import Select from "@/components/Select";
-import InputText from "@/txt/TextInput";
+import Select from "@/components/select";
+
 import { ChangeEvent, useState } from "react";
 
  

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
-import InputText from "@/txt/TextInput";
 import Button from "@/components/Button";
+import InputText from "@/components/inputText";
  
 const Page = () => {
   let [count, setCount] = useState(0);
