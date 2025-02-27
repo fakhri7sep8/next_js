@@ -48,6 +48,8 @@ const useAuthModule = () => {
           accessToken: response.data.access_token,
           refreshToken: response.data.refresh_token,
           redirect: false,
+          role:"admin",
+          access : ["read"]
         });
 
         router.push("/admin");

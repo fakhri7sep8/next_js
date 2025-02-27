@@ -8,6 +8,7 @@ import Label from "@/components/label";
 import InputText from "@/components/inputText";
 import Button from "@/components/Button";
 import { RegisterPayload } from "../interface";
+import Swal from "sweetalert2"; // ✅ Import SweetAlert2
 
 export const registerSchema = yup.object().shape({
   nama: yup.string().nullable().default("").required("Wajib isi"),
@@ -27,21 +28,39 @@ export const registerSchema = yup.object().shape({
 
 const Register = () => {
   const { useRegister } = useAuthModule();
-  const { mutate, isPending } = useRegister(); // Menggunakan isPending sebagai pengganti isLoading
+  const { mutate, isPending } = useRegister(); // ✅ Menggunakan isPending
 
   const formik = useFormik<RegisterPayload>({
     initialValues: registerSchema.getDefault(),
     validationSchema: registerSchema,
     enableReinitialize: true,
     onSubmit: (payload) => {
-      mutate(payload);
+      mutate(payload, {
+        onSuccess: (response) => {
+          Swal.fire({
+            title: "Berhasil!",
+            text: "Registrasi berhasil, silakan login.",
+            icon: "success",
+          }).then(() => {
+            window.location.href = "/auth/login"; // ✅ Redirect ke halaman login setelah sukses
+          });
+        },
+        onError: (error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Registrasi gagal! Coba lagi nanti.",
+            footer: '<a href="#">Kenapa saya mengalami masalah ini?</a>',
+          });
+        },
+      });
     },
   });
 
   const { handleChange, handleSubmit, handleBlur, values, errors } = formik;
 
   return (
-    <section className="text-black">
+    <section className="text-black min-h-screen">
       <div className="flex items-center justify-center w-full">
         <h1 className="text-3xl text-blue-400">Register</h1>
       </div>
@@ -92,7 +111,7 @@ const Register = () => {
               height="lg"
               title="Register"
               colorSchema="blue"
-              isLoading={isPending} // Menggunakan isPending
+              isLoading={isPending}
               isDisabled={isPending}
             />
             <Link href="/auth/login">

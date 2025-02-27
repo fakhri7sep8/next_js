@@ -8,41 +8,26 @@ const authOptions: NextAuthOptions = {
     CredentialsProvider({
       type: "credentials",
       credentials: {},
-      async authorize(credentials: any, req) {
-        return {
-          id: credentials.id,
-          name: credentials.name,
-          email: credentials.email,
-          accessToken: credentials.accessToken,
-          refreshToken: credentials.refreshToken,
+      async authorize(credentials:any , req) {
+         return {
+          ...credentials,
         };
-      },
+      }
     }),
   ],
 
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
-      if (user) {
-        token.id = user.id as string;
-        token.name = user.name as string;
-        token.email = user.email as string;
-        token.accessToken = user.accessToken as string;
-        token.refreshToken = user.refreshToken as string;
-      }
-
-      if (trigger === "update") {
-        return { ...token, ...session.user };
-      }
-
-      return token;
+    async jwt({ token, user, account , profile }) {
+       return {...token,...user}
     },
 
     async session({ session, token }) {
-      session.user.id = typeof token.id === "string" ? token.id : "";
-      session.user.name = typeof token.name === "string" ? token.name : "";
-      session.user.email = typeof token.email === "string" ? token.email : "";
-      session.user.accessToken = typeof token.accessToken === "string" ? token.accessToken : "";
-      session.user.refreshToken = typeof token.refreshToken === "string" ? token.refreshToken : "";
+      session.user.id = Number(token.id);
+      session.user.name = token.name;
+      session.user.email = token.email;
+      session.user.accessToken = token.accessToken;
+      session.user.refreshToken = token.refreshToken;
+      session.user.role = token.role;
       return session;
     },
   },

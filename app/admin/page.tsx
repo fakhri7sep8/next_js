@@ -20,7 +20,7 @@ const AdminPage = () => {
   }
 
   return (
-    <div className="text-black">
+    <div className="text-black min-h-screen">
       <h1>Admin Page</h1>
       <pre>{JSON.stringify(session, null, 2)}</pre> {/* Lebih rapi pakai <pre> */}
       <p>Status: {status}</p>
